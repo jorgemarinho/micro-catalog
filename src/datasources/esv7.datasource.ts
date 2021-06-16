@@ -16,7 +16,30 @@ const config = {
   },
   mappingProperties: {
 
-
+    "docType": {
+      "type": "keyword"
+    },
+    "id": {
+      "type": "keyword"
+    },
+    "name": {
+      "type": "text",
+      "fields": {
+        "keyword": {
+          "type": "keyword",
+          "ignore_above": 256
+        }
+      }
+    },
+    "is_active": {
+      "type": "boolean"
+    },
+    "created_at": {
+      "type": "date"
+    },
+    "updated_at": {
+      "type": "date"
+    }
   }
 };
 
