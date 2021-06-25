@@ -3,11 +3,11 @@ import {Application, ApplicationConfig} from '@loopback/core';
 import {RepositoryMixin} from '@loopback/repository';
 import {RestComponent, RestServer} from '@loopback/rest';
 import {
-  RestExplorerBindings,
-  RestExplorerComponent
+  RestExplorerBindings
 } from '@loopback/rest-explorer';
 import {ServiceMixin} from '@loopback/service-proxy';
 import path from 'path';
+import {RestExplorerComponent} from './components/rest-explorer.component';
 import {MySequence} from './sequence';
 import {RabbitmqServer} from './servers';
 
