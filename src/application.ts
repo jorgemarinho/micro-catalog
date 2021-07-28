@@ -7,9 +7,11 @@ import {
 } from '@loopback/rest-explorer';
 import {ServiceMixin} from '@loopback/service-proxy';
 import path from 'path';
-import {RestExplorerComponent} from './components/rest-explorer.component';
+import {RestExplorerComponent, ValidatorsComponent} from './components';
+//import {Category} from './models';
 import {MySequence} from './sequence';
 import {RabbitmqServer} from './servers';
+//import {ValidatorService} from './services/validator.service';
 
 export {ApplicationConfig};
 
@@ -33,7 +35,7 @@ export class MicroCatalogApplication extends BootMixin(
       path: '/explorer',
     });
     this.component(RestExplorerComponent);
-
+    this.component(ValidatorsComponent);
     this.projectRoot = __dirname;
     // Customize @loopback/boot Booter Conventions here
     this.bootOptions = {
@@ -46,5 +48,15 @@ export class MicroCatalogApplication extends BootMixin(
     };
 
     this.servers([RabbitmqServer]);
+  }
+
+  async boot() {
+    await super.boot();
+    /*
+        const validator = this.getSync<ValidatorService>('services.ValidatorService');
+        await validator.validate({
+          data: {},
+          entityClass: Category
+        });*/
   }
 }
