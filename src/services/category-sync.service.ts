@@ -1,15 +1,18 @@
-import {injectable, /* inject, */ BindingScope} from '@loopback/core';
+import {injectable, /* inject, */ BindingScope, service} from '@loopback/core';
 import {repository} from '@loopback/repository';
 import {Message} from 'amqplib';
 import {rabbitmqSubscribe} from '../decorators/rabbitmq-subscribe.decorator';
 import {CategoryRepository} from '../repositories';
+import {BaseModelSyncService} from './base-model-sync.service';
+import {ValidatorService} from './validator.service';
 
 @injectable({scope: BindingScope.SINGLETON})
-export class CategorySyncService {
+export class CategorySyncService extends BaseModelSyncService {
   constructor(
-    @repository(CategoryRepository) private repo: CategoryRepository
+    @repository(CategoryRepository) private repo: CategoryRepository,
+    @service(ValidatorService) private validator: ValidatorService,
   ) {
-
+    super(validator);
   }
 
   @rabbitmqSubscribe({
@@ -18,17 +21,10 @@ export class CategorySyncService {
     routingKey: 'model.category.*'
   })
   async handler({data, message}: {data: any, message: Message}) {
-    const action = message.fields.routingKey.split('.')[2];
-    switch (action) {
-      case 'created':
-        await this.repo.create(data);
-        break;
-      case 'updated':
-        await this.repo.updateById(data.id, data);
-        break;
-      case 'deleted':
-        await this.repo.deleteById(data.id);
-        break;
-    }
+    await this.sync({
+      repo: this.repo,
+      data,
+      message
+    });
   }
 }

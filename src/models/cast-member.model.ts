@@ -28,14 +28,23 @@ export class CastMember extends Entity {
   @property({
     type: 'number',
     required: true,
+    jsonSchema: {
+      enum: [CastMemberType.DIRECTOR, CastMemberType.ACTOR]
+    }
   })
   type: number;
 
   @property({
     type: 'date',
-    required: true
+    required: true,
   })
   created_at: string;
+
+  @property({
+    type: 'date',
+    required: true
+  })
+  updated_at: string;
 
   constructor(data?: Partial<CastMember>) {
     super(data);
