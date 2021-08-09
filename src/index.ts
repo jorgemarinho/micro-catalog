@@ -1,8 +1,9 @@
 import './bootstrap';
+import {MicroCatalogApplication} from './application';
+import {ApplicationConfig} from '@loopback/core';
 import {RestServer} from '@loopback/rest';
-import {ApplicationConfig, MicroCatalogApplication} from './application';
 
-export * from './application';
+export {MicroCatalogApplication};
 
 export async function main(options: ApplicationConfig = {}) {
   const app = new MicroCatalogApplication(options);
@@ -15,14 +16,4 @@ export async function main(options: ApplicationConfig = {}) {
   console.log(`Try ${url}/ping`);
 
   return app;
-}
-
-const config = require('../config');
-
-if (require.main === module) {
-  // Run the application
-  main(config).catch(err => {
-    console.error('Cannot start the application.', err);
-    process.exit(1);
-  });
 }

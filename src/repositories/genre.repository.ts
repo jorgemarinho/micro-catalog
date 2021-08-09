@@ -1,15 +1,13 @@
-import {inject} from '@loopback/core';
-import {DefaultCrudRepository} from '@loopback/repository';
+import {Genre, GenreRelations} from '../models';
 import {Esv7DataSource} from '../datasources';
-import {Genre} from '../models';
-
-export class GenreRepository extends DefaultCrudRepository<
+import {inject} from '@loopback/core';
+import {BaseRepository} from './base.repository';
+export class GenreRepository extends BaseRepository<
   Genre,
-  typeof Genre.prototype.id
+  typeof Genre.prototype.id,
+  GenreRelations
 > {
-  constructor(
-    @inject('datasources.esv7') dataSource: Esv7DataSource,
-  ) {
+  constructor(@inject('datasources.esv7') dataSource: Esv7DataSource) {
     super(Genre, dataSource);
   }
 }

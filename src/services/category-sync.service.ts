@@ -1,12 +1,12 @@
-import {injectable, /* inject, */ BindingScope, service} from '@loopback/core';
-import {repository} from '@loopback/repository';
-import {Message} from 'amqplib';
+import {bind, /* inject, */ BindingScope, service} from '@loopback/core';
 import {rabbitmqSubscribe} from '../decorators/rabbitmq-subscribe.decorator';
+import {repository} from '@loopback/repository';
 import {CategoryRepository} from '../repositories';
+import {Message} from 'amqplib';
 import {BaseModelSyncService} from './base-model-sync.service';
 import {ValidatorService} from './validator.service';
 
-@injectable({scope: BindingScope.SINGLETON})
+@bind({scope: BindingScope.SINGLETON})
 export class CategorySyncService extends BaseModelSyncService {
   constructor(
     @repository(CategoryRepository) private repo: CategoryRepository,
@@ -18,13 +18,23 @@ export class CategorySyncService extends BaseModelSyncService {
   @rabbitmqSubscribe({
     exchange: 'amq.topic',
     queue: 'micro-catalog/sync-videos/category',
-    routingKey: 'model.category.*'
+    routingKey: 'model.category.*',
+    queueOptions: {
+      deadLetterExchange: 'dlx.amq.topic',
+    },
   })
-  async handler({data, message}: {data: any, message: Message}) {
+  async handler({data, message}: {data: any; message: Message}) {
+    // await this.sleep(10000);
     await this.sync({
       repo: this.repo,
       data,
-      message
+      message,
     });
   }
+
+  //   sleep(ms: number) {
+  //     return new Promise((resolve) => {
+  //       setTimeout(resolve, ms);
+  //     });
+  //   }
 }

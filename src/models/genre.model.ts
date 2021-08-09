@@ -1,13 +1,12 @@
-import {Entity, model, property} from '@loopback/repository';
-import {SmallCategory} from './category.model';
+import {Entity, hasMany, model, property} from '@loopback/repository';
+import {Category, SmallCategory} from './category.model';
 
 @model()
 export class Genre extends Entity {
-
   @property({
     id: true,
     generated: false,
-    required: true
+    required: true,
   })
   id: string;
 
@@ -17,49 +16,51 @@ export class Genre extends Entity {
     jsonSchema: {
       minLength: 1,
       maxLength: 255,
-    }
+    },
   })
   name: string;
 
   @property({
     type: 'boolean',
-    required: true,
+    required: false,
     default: true,
   })
   is_active: boolean;
 
   @property({
     type: 'date',
-    required: true
+    required: true,
   })
   created_at: string;
 
   @property({
     type: 'date',
-    required: true
+    required: true,
   })
   updated_at: string;
 
+  @hasMany(() => Category)
   @property({
     type: 'object',
     jsonSchema: {
       type: 'array',
       items: {
-        type: "object",
+        type: 'object',
         properties: {
           id: {
-            type: "string"
+            type: 'string',
+            exists: ['Category', 'id'],
           },
           name: {
-            type: "string"
+            type: 'string',
           },
           is_active: {
-            type: "boolean"
-          }
-        }
+            type: 'boolean',
+          },
+        },
       },
-      uniqueItems: true
-    }
+      uniqueItems: true,
+    },
   })
   categories: SmallCategory;
 
@@ -69,7 +70,7 @@ export class Genre extends Entity {
 }
 
 export interface GenreRelations {
-
+  // describe navigational properties here
 }
 
 export type GenreWithRelations = Genre & GenreRelations;

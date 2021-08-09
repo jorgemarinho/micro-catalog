@@ -2,16 +2,15 @@ import {Entity, model, property} from '@loopback/repository';
 
 export enum CastMemberType {
   DIRECTOR = 1,
-  ACTOR = 2
+  ACTOR = 2,
 }
 
 @model()
 export class CastMember extends Entity {
-
   @property({
     id: true,
     generated: false,
-    required: true
+    required: true,
   })
   id: string;
 
@@ -20,8 +19,8 @@ export class CastMember extends Entity {
     required: true,
     jsonSchema: {
       minLength: 1,
-      maxLength: 255
-    }
+      maxLength: 255,
+    },
   })
   name: string;
 
@@ -29,8 +28,8 @@ export class CastMember extends Entity {
     type: 'number',
     required: true,
     jsonSchema: {
-      enum: [CastMemberType.DIRECTOR, CastMemberType.ACTOR]
-    }
+      enum: [CastMemberType.DIRECTOR, CastMemberType.ACTOR],
+    },
   })
   type: number;
 
@@ -42,7 +41,7 @@ export class CastMember extends Entity {
 
   @property({
     type: 'date',
-    required: true
+    required: true,
   })
   updated_at: string;
 
@@ -52,7 +51,7 @@ export class CastMember extends Entity {
 }
 
 export interface CastMemberRelations {
-
+  // describe navigational properties here
 }
 
 export type CastMemberWithRelations = CastMember & CastMemberRelations;

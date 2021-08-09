@@ -1,7 +1,8 @@
 import {inject} from '@loopback/core';
+import {response} from '@loopback/openapi-v3/dist/decorators/response.decorator';
 import {repository} from '@loopback/repository';
 import {
-  get, Request, response,
+  get, Request,
   ResponseObject, RestBindings
 } from '@loopback/rest';
 import {CategoryRepository} from '../repositories';
