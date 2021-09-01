@@ -16,7 +16,7 @@ module.exports = {
   rabbitmq: {
     uri: process.env.RABBITMQ_URI,
     defaultHandlerError: parseInt(process.env.RABBITMQ_HANDLER_ERROR),
-    exchanges: [{name: 'dlx.amq.topic', type: 'topic'}],
+    exchanges: [{ name: 'dlx.amq.topic', type: 'topic' }],
     queues: [
       {
         name: 'dlx.sync-videos',
@@ -33,6 +33,6 @@ module.exports = {
   },
   jwt: {
     secret:
-      '-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAx1BwufOtYWIh54C1xoru4lyqfnoarACe9b9grnIASE+KKNHthXc1KU9b64DjneIakfdn/6DsCm85hsFdOCI1OnAgs1u/5ujKK5gHwNkcMYJMYGIh+lPxUTcP32D5cRQ0DricO5mVt0kgz2deSaoQqV4cq+ev0FakdCmXK4lW7+mGTAbD3X0w5FfJpD+uHV42sZJFJSJ5mPDaOO9rDvAzT7w1SHYqkwQbRlDnj/7Yw/dFOXuTo124rueu6+z1Xkh112zp+eVp+cpxDzZTL6JoZvHMYfCD7I38NYNLRefbdUoWWdllUkx0WYBerI9IrC+Y2yxGIUW6lC6ZDgXgm8qE+wIDAQAB\n-----END PUBLIC KEY-----',
+      '-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsMGKqEIwjvghZFc4VPd2ROTkFWGTX5e5oNgFShvbbN3D1wxUWhk29uPN4U2oe8ZvYMFk7DYqAAodNaOxNgjJlw/9fVd31KdNG2DHoC1Nie0PzGvo4ABdnMoErrRsYvIMfXJYZbdcHpu96HDNBAmu6Q4JnWgErOAijkqxFEWUR6daIVDi9cIHmiFYux3OFvfP8MjJR4W2GcES4UdyIhlsi/Q0y9mtbTleK1l/j6EylruF8FibdaUwajr1mQSAKD2ueSiT8NUTEjLAK8cruGYlJUDkshadwSb5tI/tmYtlm5nmSWV6X871yrnYL9v8ivpvtWaHV7reQv8lm11RNz6J7wIDAQAB\n-----END PUBLIC KEY-----',
   },
 };
